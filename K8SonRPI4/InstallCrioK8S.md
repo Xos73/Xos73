@@ -69,12 +69,12 @@ ssh rpi4b "mkdir -p /home/ubuntu/tmp/pki/etcd" && scp *.crt rpi4b:/home/ubuntu/t
 Run following command on every to be control plane
 
 ```bash
-kubeadm join 192.168.99.10:6443 --token <Your token> --discovery-token-ca-cert-hash sha256:ca2f9b86a277f6dde7a.....1fef17940bb48703b1a --control-plane
+kubeadm join 192.168.99.10:6443 --token <Your token> --discovery-token-ca-cert-hash sha256:ca2f.....3b1a --control-plane
 ```
 
 ## Initialize k8s worker node(s)
 
 ```bash
-kubeadm join 192.168.99.10:6443 --token dvt0ye.z7uvfc96dy2xfouu --discovery-token-ca-cert-hash sha256:ca2f9b86a277f6dde7a.....1fef17940bb48703b1a
+kubeadm join 192.168.99.10:6443 --token <Your token> --discovery-token-ca-cert-hash sha256:ca2f.....3b1a
 ```
 
