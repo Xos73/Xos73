@@ -36,20 +36,25 @@ wlan0:
 When I wrote the Ubuntu image to my SD cards, the ssh server was already activated by default. Check below settings in the `user-data` file:
 
 ```
+...
 # Enable password authentication with the SSH daemon
 ssh_pwauth: true
+...
 ```
 
 This file `user-data`also contains other useful information and parametrisation:
 
 1. Change password of "ubuntu" user at first login (default settings)
 
-```   # On first boot, set the (default) ubuntu user's password to "ubuntu" and
+```
+...
+# On first boot, set the (default) ubuntu user's password to "ubuntu" and
    # expire user passwords
    chpasswd:
      expire: true
      list:
      - ubuntu:ubuntu
+...
 ```
 
 2. Install additional packages on first boot (could be used to install std packages needed for setting up k8s)
