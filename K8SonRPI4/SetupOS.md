@@ -117,24 +117,28 @@ EOF
 ```
 
 `modprobe overlay`
+
 `modprobe br_netfilter`
 
-```
-cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+`cat <<EOF | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-```
+EOF`
 
 `sudo sysctl --system`
+
 `sudo swapoff -a`
 
 ### Update the system and reboot the system
 
 `sudo apt-get update`
+
 `sudo apt-get upgrade -y`
+
 `sudo apt-get dist-upgrade -y`
+
 `sudo apt-get install apt-transport-https`
+
 `sudo reboot`
 
