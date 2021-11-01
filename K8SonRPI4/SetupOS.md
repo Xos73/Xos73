@@ -13,9 +13,15 @@ To prevent from having to couple a screen to my RPI4 devices, I opted for the he
 
 Below you'll find the changes I made on my SD cards:
 
+> **Note:** If you want to do the same with Raspbian OS, you'll need to:
+>
+> * `touch ssh` A file names "ssh" should be present
+> * add a `wpa_supplicant.conf` file in the root, containing your needed WiFi configuration
+
+
 ### Configure IP address ###
 On the Raspberry Pi 4, I have both an Ethernet connection and a WiFi connection. I've connected all Ethernet cards to a 5-port switch to have a network backbone for my cluster. My backbone has a 192.168.99.0/24 network. The WiFi connections are used as an "external" facing network.
-***note:** I had issues configuring the WiFi connection in headless mode. Had to fix it later after boot*
+***Note:** I had issues configuring the WiFi connection in headless mode. Had to fix it later after boot*
 
 Edit the file `network-config`:
 
