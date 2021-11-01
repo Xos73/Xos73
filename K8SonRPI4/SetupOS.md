@@ -38,7 +38,6 @@ When I wrote the Ubuntu image to my SD cards, the ssh server was already activat
 ```
 # Enable password authentication with the SSH daemon
 ssh_pwauth: true
-
 ```
 
 This file `user-data`also contains other useful information and parametrisation:
