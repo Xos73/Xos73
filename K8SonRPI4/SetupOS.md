@@ -139,7 +139,20 @@ sudo hostnamectl set-hostname <newHostname>
 ### Add your own user to the system and create your ssh key
 ```bash
 sudo adduser <yourUser>
-usermod -aG sudo <yourUser>
+sudo usermod -aG sudo <yourUser>
+```
+
+#### Don't forget to adapt sudo rights
+```bash
+sudo visudo
+```
+or
+```bash
+sudo visudo -f /etc/sudoers.d/99-<yourUser>
+
+# User rules for <yourUser>
+<yourUser> ALL=(ALL) NOPASSWD:ALL
+
 ```
 
 ### Update the system and reboot the system
