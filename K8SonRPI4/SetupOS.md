@@ -97,10 +97,11 @@ network:
 
 ```
 #### Disable cloud-init
-Create the file `/etc/cloud/cloud.cfg.d/99-disable-network-config.cfg` with content:
 
-```
-network: {config: disabled}
+```bash
+cat <<EOF | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+> network: {config: disabled}
+> EOF
 ```
 
 ### Enable cgroup settings
