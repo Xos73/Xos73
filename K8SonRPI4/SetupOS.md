@@ -105,6 +105,13 @@ EOF
 
 sudo rm -rf /etc/netplan/50-cloud-init.yaml
 ```
+#### Apply the network changesit
+
+```bash
+sudo netplan apply
+
+ip address show
+```
 
 ### Enable cgroup settings
 
