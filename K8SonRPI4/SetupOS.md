@@ -85,15 +85,15 @@ Add the following to `/etc/netplan/00-installer-config.yaml`:
 ```
 network:
   version: 2
-  ethernets:
-  eth0:
-    addresses: [192.168.99.10/24]
+    ethernets:
+    eth0:
+      addresses: [192.168.99.10/24]
   wifis:
-  wlan0:
-    dhcp4: true
-    access-points:
-      "<wiFiNetworkName>":
-        password: "<yourPassword>"
+    wlan0:
+      dhcp4: true
+      access-points:
+        "<wiFiNetworkName>":
+          password: "<yourPassword>"
 
 ```
 #### Disable cloud-init
@@ -102,6 +102,8 @@ network:
 cat <<EOF | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 network: {config: disabled}
 EOF
+
+rm -rf /etc/netplan/50-cloud-init.yaml
 ```
 
 ### Enable cgroup settings
