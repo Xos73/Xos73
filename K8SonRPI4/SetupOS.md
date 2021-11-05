@@ -130,12 +130,16 @@ sudo sysctl --system
 sudo swapoff -a
 ```
 
-### rename your server
+### Rename your server
+```bash
 sudo hostnamectl set-hostname <newHostname>
+```
 
 ### Add your own user to the system and create your ssh key
+```bash
 sudo adduser <yourUser>
 usermod -aG sudo <yourUser>
+```
 
 ### Update the system and reboot the system
 
