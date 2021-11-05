@@ -171,6 +171,8 @@ sudo visudo -f /etc/sudoers.d/99-<yourUser>
 ```
 
 ### Update the system and reboot the system
+Could be that yu get the error message: `Could not get lock /var/lib/dpkg/lock-frontend`.
+This is probaby because `/usr/bin/unattended-upgrade` is still running. Please wait it to finish (check with `ps -ef`)
 
 ```bash
 sudo apt-get update
