@@ -103,7 +103,7 @@ cat <<EOF | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 network: {config: disabled}
 EOF
 
-rm -rf /etc/netplan/50-cloud-init.yaml
+sudo rm -rf /etc/netplan/50-cloud-init.yaml
 ```
 
 ### Enable cgroup settings
