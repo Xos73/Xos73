@@ -29,14 +29,14 @@ Edit the file `network-config`:
 ```
 version: 2
 ethernets:
-eth0:
-  addresses: [192.168.99.10/24]
+  eth0:
+    addresses: [192.168.99.10/24]
 wifis:
-wlan0:
-  dhcp4: true
-  access-points:
-	"<wiFiNetworkName>":
-	  password: "<yourPassword>"
+  wlan0:
+    dhcp4: true
+    access-points:
+      "<wiFiNetworkName>":
+        password: "<yourPassword>"
 
 ```
 #### Allow ssh server
