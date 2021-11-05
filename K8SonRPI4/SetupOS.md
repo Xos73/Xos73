@@ -131,12 +131,18 @@ sudo sysctl --system
 sudo swapoff -a
 ```
 
-### Rename your server
+### Perosnalisation
+#### Rename your server
 ```bash
 sudo hostnamectl set-hostname <newHostname>
 ```
 
-### Add your own user to the system and create your ssh key
+#### Change to vi as default editor
+```bash
+sudo update-alternatives --set editor /usr/bin/vim.basic
+```
+
+#### Add your own user to the system and create your ssh key
 ```bash
 sudo adduser <yourUser>
 sudo usermod -aG sudo <yourUser>
