@@ -7,7 +7,7 @@ Initially, I used raspbian OS 32bit, but because I wanted to go for a full k8s e
 * Choose OS
 * Other general purposes OS
 * Ubuntu
-* Ubuntu Server 20.04.3 LTS 64-bit -or- Ubuntu Core 20 64-bit
+* Ubuntu Server 20.04.3 LTS 64-bit
 
 ### Edit files on the SD card
 To prevent from having to couple a screen to my RPI4 devices, I opted for the headless approach. Ubuntu is using cloud-init based configuration files. The cloud-init documentation has more details https://cloudinit.readthedocs.io/.
