@@ -35,8 +35,8 @@ wifis:
 wlan0:
   dhcp4: true
   access-points:
-	"<WiFi network name>":
-	  password: "<Your password>"
+	"<wiFiNetworkName>":
+	  password: "<yourPassword>"
 
 ```
 #### Allow ssh server
@@ -92,8 +92,8 @@ network:
   wlan0:
     dhcp4: true
     access-points:
-      "<WiFi network name>":
-        password: "<Your password>"
+      "<wiFiNetworkName>":
+        password: "<yourPassword>"
 
 ```
 #### Disable cloud-init
@@ -129,6 +129,13 @@ EOF
 sudo sysctl --system
 sudo swapoff -a
 ```
+
+### rename your server
+sudo hostnamectl set-hostname <newHostname>
+
+### Add your own user to the system and create your ssh key
+sudo adduser <yourUser>
+usermod -aG sudo <yourUser>
 
 ### Update the system and reboot the system
 
