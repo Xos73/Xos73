@@ -24,7 +24,7 @@ Below you'll find the changes I made on my SD cards:
 On the Raspberry Pi 4, I have both an Ethernet connection and a WiFi connection. I've connected all Ethernet cards to a 5-port switch to have a network backbone for my cluster. My backbone has a 192.168.99.0/24 network. The WiFi connections are used as an "external" facing network.
 ***Note:** I had issues configuring the WiFi connection in headless mode. Had to fix it later after boot*
 
-Edit the file `network-config`:
+Edit the file `network-config`: (!) Please ensure the 2 space indents (!)
 
 ```
 version: 2
@@ -34,12 +34,43 @@ ethernets:
 wifis:
   wlan0:
     dhcp4: true
+    optional: true
     access-points:
       "<wiFiNetworkName>":
         password: "<yourPassword>"
 
 ```
-#### Allow ssh server
+##### Some clarifications
+
+- *dhcp4*: true ensures that your Raspberry Pi will ask your WiFi router for network settings, including DNS servers and an IP address. Likely, your router will assign another IP address in addition to the one you specified above. That is not a problem for now — it can be corrected later by configuring the router to assign a fixed IP address to your Raspberry Pi.
+- Keep the *optional: true* setting. Since the <u>WiFi adapter will not be initialized on the first boot</u>, this setting will ensure that the boot process won't fail. We <u>will configure our Raspberry Pi for reboot just after the first boot</u>.
+- In the *access-points* setting, enter your WiFi network name and password.
+- Pay attention to *indents*! Each next inner level must have exactly 2 additional spaces.
+
+#### Edit the user-data file
+
+##### Reboot to allow the wifi to become active
+
+Edit the  `user-data` file, and append the following lines:
+
+```bash
+...
+runcmd:
+- [ sed, -i, s/REGDOMAIN=/REGDOMAIN=BE/g, /etc/default/crda ]
+- [ netplan, apply ]
+# Reboot after cloud-init completes
+power_state:
+  mode: reboot
+```
+
+The *runcmd* part that invokes *sed* is essential if you wish to connect to the 5GHz WiFi network (Raspberry Pi 4 supports the *ac* standard). It adds the country code to the */etc/default/crda* file. The 5GHz standard has different restrictions depending on the country where it is used; thus, it won't work if the country is not specified. You can replace “BE” with your country code in the code snippet above.
+
+The runcmd part that invokes *netplan apply* may be omitted on Ubuntu 20.04 but is required on newer Ubuntu versions.
+
+The *power_state* part instructs our Raspberry Pi to reboot after the initialization. Thus, your WiFi network can be reached on the second boot.
+
+##### Enable SSH server
+
 When I wrote the Ubuntu image to my SD cards, the ssh server was already activated by default. Check below settings in the `user-data` file:
 
 ```
@@ -48,6 +79,8 @@ When I wrote the Ubuntu image to my SD cards, the ssh server was already activat
 ssh_pwauth: true
 ...
 ```
+
+##### Other settings
 
 This file `user-data`also contains other useful information and parametrisation:
 
@@ -68,6 +101,7 @@ This file `user-data`also contains other useful information and parametrisation:
 3. Change keyboard layout (only needed when directly connecting to the rpi4, not through SSH)
 ### Web references
 Guide was based upon https://roboticsbackend.com/install-ubuntu-on-raspberry-pi-without-monitor/
+and https://sergejskozlovics.medium.com/how-to-set-up-a-wireless-ubuntu-server-on-raspberry-pi-89b84dca34d2 for the wifi setup at first boot
 
 Headless setup with redirecting output to console https://limesdr.ru/en/2020/10/17/rpi4-headless-ubuntu/
 
