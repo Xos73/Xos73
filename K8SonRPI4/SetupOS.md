@@ -112,10 +112,23 @@ Step-by-step at Ubuntu, but needing a monitor https://ubuntu.com/tutorials/how-t
 
 When booting from the SD card, cloud-init is used. Ubuntu can still use cloud-init, nevertheless they moved their config to netplan
 
-#### Create netplan config
+#### If you followed the configuration steps above and wifi connects
+```bash
+sudo mv /etc/netplan/50-cloud-init.yaml /etc/netplan/00-installer-config.yaml
+sudo sed -e '1,5d' < /etc/netplan/00-installer-config.yaml 
 
-**Not needed if you followed the reboot procedure described above**
-Either edit/ check the `/etc/netplan/50-cloud-init.yaml` or create the following to `/etc/netplan/00-installer-config.yaml` file:
+cat <<EOF | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+network: {config: disabled}
+EOF
+
+sudo netplan apply
+
+ip address show
+
+```
+
+#### Or create/ edit manually the needed files
+Create/ edit the following to `/etc/netplan/00-installer-config.yaml` file:
 
 ```
 network:
@@ -131,7 +144,7 @@ network:
           password: "<yourPassword>"
 
 ```
-#### Disable cloud-init
+Disable cloud-init
 
 ```bash
 cat <<EOF | sudo tee /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
@@ -140,7 +153,7 @@ EOF
 
 sudo rm -rf /etc/netplan/50-cloud-init.yaml
 ```
-#### Apply the network changesit
+Apply the network changes
 
 ```bash
 sudo netplan apply
