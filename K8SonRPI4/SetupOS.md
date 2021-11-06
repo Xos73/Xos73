@@ -114,7 +114,8 @@ When booting from the SD card, cloud-init is used. Ubuntu can still use cloud-in
 
 #### Create netplan config
 
-Add the following to `/etc/netplan/00-installer-config.yaml`:
+**Not needed if you followed the reboot procedure described above**
+Either edit/ check the `/etc/netplan/50-cloud-init.yaml` or create the following to `/etc/netplan/00-installer-config.yaml` file:
 
 ```
 network:
