@@ -229,3 +229,73 @@ sudo apt-get dist-upgrade -y
 sudo apt-get install apt-transport-https
 sudo reboot
 ```
+
+# Enable login through ssh keys
+
+## From your normal workstation to the master node of the cluster
+
+Use your preferred ssh key generator to create a key.
+
+### Windows
+
+On Windows, you can use the putty suite: `puTTYgen` --> use a RSA2 key with 4096 key length (2048 minimum)
+
+Save both keys .ppk (private key) and .pub (public key)
+
+Copy the public key to the home folder of the user you want to logon with to master node of the Raspberry Pi cluster
+
+Move and rename the file
+
+```bash
+cat /home/ubuntu/user.pub >> /home/ubuntu/.ssh/authorized_keys
+rm  /home/ubuntu/user.pub
+```
+
+### Linux
+
+On Linux, use the command:
+
+```bash
+ssh-keygen -t rsa -b 4096 -C <your e-mail address>
+```
+
+Copy the public key to the home folder of the user you want to logon with to master node of the Raspberry Pi cluster
+
+```bash
+ssh-copy-id ubuntu@<masternode>
+```
+
+## From the master node to the other worker nodes
+
+- If needed adapt the /etc/hosts file and add all the nodes with friendly names
+
+  ```bash
+  sudo vi /etc/hosts
+  ```
+
+- Generate a key pair on the master node
+
+  ```bash
+  ssh-keygen -t rsa -b 4096
+  ```
+
+- Install the public key on the other nodes
+
+  ```bash
+  ssh-copy-id ubuntu@rpi4b
+  ```
+
+  > ubuntu@rpi4a:~/.ssh$ ssh-copy-id ubuntu@rpi4b
+  > /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/xtophe/.ssh/id_rsa.pub"
+  > The authenticity of host 'rpi4d (10.10.11.224)' can't be established.
+  > ECDSA key fingerprint is SHA256:spE......Lyk.
+  > Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+  > /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+  > /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+  > ubuntu@rpi4b's password:
+  >
+  > Number of key(s) added: 1
+  >
+  > Now try logging into the machine, with:   "ssh 'ubuntu@rpi4b'"
+  > and check to make sure that only the key(s) you wanted were added.
+
