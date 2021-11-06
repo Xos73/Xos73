@@ -188,7 +188,7 @@ sudo sysctl --system
 sudo swapoff -a
 ```
 
-### Perosnalisation
+### Personalisation
 #### Rename your server
 ```bash
 sudo hostnamectl set-hostname <newHostname>
@@ -211,9 +211,9 @@ sudo visudo
 ```
 or
 ```bash
-sudo visudo -f /etc/sudoers.d/99-<yourUser>
+sudo visudo -f /etc/sudoers.d/99-admins
 
-# User rules for <yourUser>
+# User rules for admins
 <yourUser> ALL=(ALL) NOPASSWD:ALL
 
 ```
